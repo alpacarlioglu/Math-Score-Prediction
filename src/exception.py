@@ -8,11 +8,11 @@ def error_message_detail(error, error_detail: sys) -> str:
     This provides more context on where and why the error occurred.
     '''
     _, _, exc_tb = error_detail.exc_info()
-    file_name = exc_tb.tb_frame.f_code.co_name
+    file_name = exc_tb.tb_frame.f_code.co_filename  # Changed from co_name to co_filename
     line_number = exc_tb.tb_lineno
     error_message = str(error)
 
-    error_message = 'Error occurred in script: {} at line number: {}. Error message: {}'.format(file_name, line_number, error_message)
+    error_message = 'Error occurred in file: {} at line number: {}. Error message: {}'.format(file_name, line_number, error_message)
     return error_message
 
 class CustomException(Exception):
