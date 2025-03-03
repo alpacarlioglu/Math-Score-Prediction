@@ -14,6 +14,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from src.utils import save_obj
 from src.exception import CustomException
 from src.components.data_ingestion import DataIngestion
+from src.components.model_trainer import ModelTraining
 
 
 @dataclass
@@ -91,7 +92,7 @@ class DataTransformation:
 
             preprocessing_obj=self.get_data_transformer_obj()
 
-            target_column_name="math_score"
+            target_column_name= "math_score"
             numerical_columns = ["writing_score", "reading_score"]
 
             train_features = train_df.drop(columns=[target_column_name],axis=1)
@@ -133,6 +134,7 @@ if __name__ == '__main__':
     train_data, test_data = data.initiate_data_ingestion()
     
     preprocessor = DataTransformation()
-    preprocessor.initiate_data_transformation(train_data, test_data)
+    train_arr, test_arr, preprocessor_path = preprocessor.initiate_data_transformation(train_data, test_data)
     
-    
+    model_trainer = ModelTraining()
+    print(f"{model_trainer.initiate_model_trainer(train_arr, test_arr):.4f}")
