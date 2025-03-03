@@ -129,6 +129,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+
 # Ignore catboost info logs
 catboost_info/
 **/catboost_info/
