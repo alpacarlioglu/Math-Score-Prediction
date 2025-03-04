@@ -15,6 +15,17 @@ def save_obj(obj, file_path):
     except Exception as e:
         raise CustomException(e, sys)
     
+
+def load_obj(file_path):
+    try:
+        with open(file_path, 'rb') as file:
+            return dill.load(file)
+        
+    except Exception as e:
+        logging.info(f'Cant load the {file} file')
+        raise CustomException(e, sys)
+    
+    
 def evaluate_model(X_train, y_train, X_test, y_test, models, params):
     try:
         report = {}
@@ -59,3 +70,4 @@ def evaluate_model(X_train, y_train, X_test, y_test, models, params):
     except Exception as e:
         logging.error(f'Evaluation failed: {str(e)}')
         raise CustomException(e, sys)
+    
