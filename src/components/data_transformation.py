@@ -5,7 +5,7 @@ import pandas as pd
 
 from dataclasses import dataclass
 
-from src.logger import logging
+import logging
 
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer

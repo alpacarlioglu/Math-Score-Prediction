@@ -14,7 +14,7 @@ from sklearn.svm import SVR
 from sklearn.linear_model import LinearRegression, Ridge,Lasso
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 from sklearn.model_selection import RandomizedSearchCV
-from catboost import CatBoostRegressor
+# from catboost import CatBoostRegressor
 from xgboost import XGBRegressor
 from src.utils import save_obj, evaluate_model
 from dataclasses import dataclass
@@ -46,7 +46,7 @@ class ModelTraining:
                 "Linear Regression": LinearRegression(),
                 "K-Neighbors Classifier": KNeighborsRegressor(),
                 "XGBClassifier": XGBRegressor(),
-                "CatBoosting Classifier": CatBoostRegressor(verbose=False),
+                #"CatBoosting Classifier": CatBoostRegressor(verbose=False),
                 "AdaBoost Classifier": AdaBoostRegressor(),
             }
             
@@ -75,11 +75,11 @@ class ModelTraining:
                     'learning_rate':[.1,.01,.05,.001],
                     'n_estimators': [8,16,32,64,128,256]
                 },
-                "CatBoosting Regressor":{
-                    'depth': [6,8,10],
-                    'learning_rate': [0.01, 0.05, 0.1],
-                    'iterations': [30, 50, 100]
-                },
+                # "CatBoosting Regressor":{
+                #     'depth': [6,8,10],
+                #     'learning_rate': [0.01, 0.05, 0.1],
+                #     'iterations': [30, 50, 100]
+                # },
                 "AdaBoost Regressor":{
                     'learning_rate':[.1,.01,0.5,.001],
                     # 'loss':['linear','square','exponential'],
@@ -96,20 +96,6 @@ class ModelTraining:
             best_model_name = list(model_report.keys())[0]
             best_model = models[best_model_name]
             save_obj(best_model, self.model_training_config.trained_model_path)
-            
-            # # model_report is a list of tuples: [(model_name, {'R2': score}), ...]
-            # best_model_tuple = model_report[0]  # Get the first tuple (highest R2 score)
-            # best_model_name = best_model_tuple[0]  # Get the model name
-            # best_model = models[best_model_name]
-
-            # # Check R2 score from the tuple
-            # if best_model_tuple[1]['R2'] < 0.6:
-            #     raise CustomException("No best model found", sys)
-            
-            # save_obj(
-            #     obj=best_model,
-            #     file_path=self.model_training_config.trained_model_path
-            # )
             
             predicted = best_model.predict(X_test)
             

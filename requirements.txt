@@ -2,9 +2,11 @@ numpy
 pandas
 seaborn
 matplotlib
-
+scikit-learn
 catboost
 xgboost
 dill
+waitress
+ngrok
 Flask
 -e .
